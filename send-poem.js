@@ -1,3 +1,5 @@
+console.log("BOT_TOKEN exists:", !!process.env.BOT_TOKEN);
+console.log("CHAT_ID exists:", !!process.env.CHAT_ID);
 const fs = require("fs");
 
 const poems = JSON.parse(
