@@ -1,8 +1,11 @@
 name: Daily Love Poem
+
 on:
   workflow_dispatch:
+
   schedule:
     - cron: "*/10 * * * *"
+
 jobs:
   send:
     runs-on: ubuntu-latest
