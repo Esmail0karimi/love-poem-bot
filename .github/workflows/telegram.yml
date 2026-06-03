@@ -1,8 +1,8 @@
 name: Daily Love Poem
 
 on:
- schedule:
-  - cron: '*/10 * * * *'
+  schedule:
+    - cron: '*/10 * * * *'
 
   workflow_dispatch:
 
