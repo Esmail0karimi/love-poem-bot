@@ -1,23 +1,37 @@
-name: Daily Love Poem
+name: Send Persian Poem
 
 on:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 */5 * * *'
 
   workflow_dispatch:
 
 jobs:
-  send:
+  send-poem:
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - run: node send-poem.js
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Run bot
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: node send-poem.js
+
+    - name: Save state
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+
+        git add state.json
+        git commit -m "update state" || exit 0
+        git push
